@@ -3,22 +3,12 @@
 // Focus on building quality websites, enjoying the process, and making your clients happy—that’s what really matters.
 // Some amazing sites never win anything, while mediocre ones sometimes do. Awards are a niche, not a universal measure of value.
 // Stay sharp, stay honest, and keep having fun.
-const awards = {
-  counters: {
-    awwwards: ['SOTD x 16', 'Honors x 1'],
-    fwa: ['SOTD x 4', 'MOTD x 2'],
-    cssda: ['WOTD x 18', 'WOTM x 1'],
-  },
-  texts: {
-    webby2025: '2025 Webby Awards Winner <br/>Best Home Page',
-    commArt2017: 'Comm Arts Mag Interactive  Annual Competition Winner 2017',
-    netMag2016: 'Net Mag SOTM Summer 2016',
-    gsapOct2024: 'GSAP SOTM October 2024',
-    gsapNov2024: 'GSAP SOTM November 2024',
-    CSSDA2016: 'CSSDA Best Front-End <br/>Developer 2016',
-    CSSDA2015: 'CSSDA Best Front-End <br/>Developer 2015',
-  },
-}
+const personalityFragments = [
+  { label: "当前执念 (Current obsession)", text: "制作像玩具般有趣，同时能解决实际问题的小界面。" },
+  { label: "个人信念 (Belief)", text: "一个优秀的个人主页，在它变得完整之前应该先活过来。" },
+  { label: "美学关键词 (Aesthetics)", text: "好玩的系统、奇妙的实用性、清晰的边缘、温和的实验。" },
+  { label: "常备工具 (Tools)", text: "AI 编程助手、无限多的浏览器标签页、粗糙的手稿和玩具原型。" },
+]
 ---
 
 <section id="about" class="s-about" data-intersect>
@@ -28,53 +18,35 @@ const awards = {
 
       <div class="s__content">
         <p>
-         Curiosity and the drive to learn are the most valuable skills for any creative developer. That hunger to understand how things work, to find clever workarounds, and to constantly push boundaries—that’s what makes this craft so rewarding.
+          好奇心与探索欲是所有创意开发者最宝贵的特质。那种渴望弄懂事物工作原理、发掘奇妙方案并不断突破边界的热情，让这份创造性的手艺变得如此富有魅力。
         </p>
 
         <p>
-          Over the years, I’ve learned more from studying other people’s code than from any course or tutorial. Digging through Codrops experiments, exploring CodePen creations, and analyzing real-world projects—that’s how I leveled up. And it’s still part of my daily routine.
+          这些年来，比起枯燥的教程，我更多地是在阅读和剖析优秀的代码中成长的。深挖各种实验原型、探索 CodePen 上的奇妙构思、拆解优秀的开源项目——这至今仍是我每日灵感与学习的来源。
         </p>
 
         <p>
-          This portfolio brought me more recognition than I ever expected. What started as a quiet relaunch of my digital presence ended up winning a Webby Award. Now it’s time to give back.
+          这里是我的“个人宇宙”，收纳了我所有的 Vibe Coding 作品、自媒体入口和正在发芽的想法。
         </p>
 
         <p>
-          I’m open-sourcing this site to share the knowledge behind it. If you’re a junior developer, I hope it helps you learn faster, build smarter, and gain confidence in your own journey.
-        </p>
-
-        <p>
-          If you’re tempted to copy/paste it and make it yours as-is—don’t. The community will call you out, and you’ll doom yourself to eternal mediocrity.
+          <strong>当前状态 (Now)：</strong><br />
+          我正在设计并长期维护这个个人主页。当前正专注于收集 Vibe Coding 实验，尝试把更多天马行空的创意化为触手可及的互联网产品。
         </p>
       </div><!-- .s__content -->
     </div><!-- .s__block -->
 
     <div class="s__block s__block--awards">
-      <h2 class="s__title">Awards</h2>
+      <h2 class="s__title">Personality</h2>
 
       <ul class="s__awards">
         {
-          Object.entries(awards.counters).map(([award, counters]) => (
-            <li
-              class={`s__award s__award--counter s__award--${award} js-award`}
-            >
+          personalityFragments.map((fragment) => (
+            <li class="s__award s__award--text js-award">
               <span class="s__award__inner">
-                <span class="s__award__name">{award}</span>
-                {counters.map((counter) => (
-                  <span class="s__award__counter">({counter})</span>
-                ))}
-              </span>
-
-              <span class="s__award__mask" />
-            </li>
-          ))
-        }
-
-        {
-          Object.entries(awards.texts).map(([award, text]) => (
-            <li class={`s__award s__award--text s__award--${award} js-award`}>
-              <span class="s__award__inner">
-                <span class="s__award__text" set:html={text} />
+                <span class="s__award__text">
+                  <strong>{fragment.label}</strong> <br/> {fragment.text}
+                </span>
               </span>
 
               <span class="s__award__mask" />
@@ -240,6 +212,7 @@ const awards = {
 
       this.bindEvents()
 
+
       if (this.el.classList.contains('is-in-view') && this.isPaused) {
         this.isPaused = false
         Emitter.on('tick', this.tick, this)
@@ -345,10 +318,10 @@ const awards = {
      */
     createSmiley() {
       const mainImg = new Image(100, 100)
-      mainImg.src = '/images/asset-smiley--main.svg'
+      mainImg.src = `${import.meta.env.BASE_URL}images/asset-smiley--main.svg`
 
       const contrastedImg = new Image(100, 100)
-      contrastedImg.src = '/images/asset-smiley--contrasted.svg'
+      contrastedImg.src = `${import.meta.env.BASE_URL}images/asset-smiley--contrasted.svg`
 
       this.smileyImages = {
         main: mainImg,
@@ -795,6 +768,9 @@ const awards = {
 
       transform: translate3d(0, var(--offset-y), 0);
 
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 80px, #000 calc(100% - 80px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 80px, #000 calc(100% - 80px), transparent 100%);
+
       will-change: transform;
     }
 
@@ -871,15 +847,7 @@ const awards = {
       grid-template-columns: repeat(4, calc(var(--width) / 4));
       grid-template-rows: repeat(8, calc(var(--width) / 4 / 0.751));
 
-      background: repeating-linear-gradient(
-        -45deg,
-        transparent,
-        transparent 1px,
-        map.get($theme-colors, 'default', 'secondary') 1.5px,
-        map.get($theme-colors, 'default', 'secondary') 2.5px,
-        transparent 3px,
-        map.get($theme-colors, 'default', 'primary') 11px
-      );
+      background: transparent;
 
       list-style: none;
       overflow: hidden;
@@ -890,15 +858,7 @@ const awards = {
       }
 
       @at-root :global(.theme-contrasted) & {
-        background: repeating-linear-gradient(
-          -45deg,
-          transparent,
-          transparent 1px,
-          map.get($theme-colors, 'contrasted', 'secondary') 1.5px,
-          map.get($theme-colors, 'contrasted', 'secondary') 2.5px,
-          transparent 3px,
-          map.get($theme-colors, 'contrasted', 'primary') 11px
-        );
+        background: transparent;
       }
 
       .s__award {
@@ -908,22 +868,29 @@ const awards = {
         margin: 0;
         padding: 0.75rem;
 
-        background: color(primary);
+        background: rgba(22, 0, 0, 0.55);
+        background-blend-mode: luminosity;
+        backdrop-filter: blur(50px);
+        -webkit-backdrop-filter: blur(50px);
+        border: none !important;
+        box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        overflow: hidden;
         clip-path: inset(-1px);
         cursor: default;
 
         will-change: transform;
 
-        &:before {
-          position: absolute;
-          top: -1px;
-          right: 0;
-          bottom: 0;
-          left: -1px;
-
-          border: 1px solid color(secondary);
-
+        &::before {
           content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          border-radius: inherit;
+          padding: 1.4px;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 20%, transparent 40%, transparent 60%, rgba(255, 255, 255, 0.2) 80%, rgba(255, 255, 255, 0.5) 100%);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
         }
 
         &__inner {
@@ -966,7 +933,7 @@ const awards = {
             height: 100%;
 
             background: color(primary);
-            mask: url('/images/asset-star.svg') center / 1.5rem 1.5rem no-repeat;
+            mask: url('../../public/images/asset-star.svg') center / 1.5rem 1.5rem no-repeat;
 
             transition: transform 0.8s ease(in-cubic);
             will-change: transform;

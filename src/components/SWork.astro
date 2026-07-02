@@ -83,19 +83,21 @@ videos.forEach((video, index) => {
   }
 })
 
-// Create dummy projects with 3 videos each
-for (let i = 1; i <= 14; i++) {
-  const key = `Dummy${i}`
-  const project = info[key]
-  if (!project) continue
+// Create real projects and variations to maintain 3D scene length
+const realProjects = [
+  { title: "Tiny AI Toybox", site: "works-view.html" },
+  { title: "Personal Site Generator", site: "works-view.html" },
+  { title: "Prompt Rituals", site: "works-view.html" }
+]
 
-  for (let j = 0; j < 4; j++) {
-    projects.push({
-      caption: `${project.title} - Video ${j + 1}`,
-      site: project.site,
-      src: dummyVideo
-    })
-  }
+projects = []
+for (let i = 0; i < 16; i++) {
+  const base = realProjects[i % realProjects.length]
+  projects.push({
+    caption: `${base.title} — Experiment #${i + 1}`,
+    site: base.site,
+    src: dummyVideo
+  })
 }
 
 function shuffle(array) {
@@ -1038,6 +1040,9 @@ while (i < projects.length) {
 
       background: color(secondary);
       transform: translate3d(0, calc(var(--scroll-progress) * -15%), 0);
+
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 120px, #000 calc(100% - 120px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 120px, #000 calc(100% - 120px), transparent 100%);
 
       color: color(primary);
 

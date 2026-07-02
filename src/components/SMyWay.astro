@@ -3,59 +3,59 @@ import { Image } from 'astro:assets'
 
 const frames = [
   {
-    caption: 'Generative art poster concept',
+    caption: '生成艺术海报概念',
     src: import('/src/assets/frames/art-1987.jpg'),
   },
   {
-    caption: 'Generative art poster concept',
+    caption: '生成艺术海报概念',
     src: import('/src/assets/frames/art-dtyw.jpg'),
   },
   {
-    caption: 'Generative art poster concept',
+    caption: '生成艺术海报概念',
     src: import('/src/assets/frames/art-lines.jpg'),
   },
   {
-    caption: 'My first FOTD on FWA  ♥ (2012)',
+    caption: '我在 FWA 上的第一个 FOTD 作品 ♥ (2012)',
     src: import('/src/assets/frames/first-fwa.jpg'),
   },
   {
-    caption: 'Roaaaar!',
+    caption: '咆哮吧！',
     src: import('/src/assets/frames/roar.jpg'),
   },
   {
-    caption: 'Early age (2006) desk setup ',
+    caption: '早期桌面配置 (2006)',
     src: import('/src/assets/frames/setup-2006.jpg'),
   },
   {
-    caption: '2016 desk setup',
+    caption: '2016 年桌面配置',
     src: import('/src/assets/frames/setup-2016.jpg'),
   },
   {
-    caption: '2020 desk setup',
+    caption: '2020 年桌面配置',
     src: import('/src/assets/frames/setup-2020.jpg'),
   },
   {
-    caption: 'Waaark Creative Robots',
+    caption: 'Waaark 创意机器人',
     src: import('/src/assets/frames/waaark.png'),
   },
   {
-    caption: '2011 portfolio',
+    caption: '2011 年作品集',
     src: import('/src/assets/frames/portfolio-2011.jpg'),
   },
   {
-    caption: '2014 portfolio',
+    caption: '2014 年作品集',
     src: import('/src/assets/frames/portfolio-2014.jpg'),
   },
   {
-    caption: '2017 portfolio (never released)',
+    caption: '2017 年作品集（未发布）',
     src: import('/src/assets/frames/portfolio-2017.jpg'),
   },
   {
-    caption: '2021 portfolio',
+    caption: '2021 年作品集',
     src: import('/src/assets/frames/portfolio-2021.jpg'),
   },
   {
-    caption: 'Legos ♥',
+    caption: '乐高积木 ♥',
     src: import('/src/assets/frames/legos.jpg'),
   },
 ]
@@ -936,7 +936,7 @@ const frames = [
       will-change: transform;
 
       &:before {
-        mask: url('/images/sprite-vanish.png');
+        mask: url('../../public/images/sprite-vanish.png');
       }
 
       &.is-waiting {
@@ -1080,7 +1080,7 @@ const frames = [
           width: 100%;
           height: 100%;
 
-          background: url('/images/asset-star.svg') center / cover no-repeat;
+          background: url('../../public/images/asset-star.svg') center / cover no-repeat;
 
           content: '';
         }
@@ -1251,7 +1251,7 @@ const frames = [
 
         &,
         .a__inner {
-          mask: url('/images/sprite-vanish.png') left/3000% 100%;
+          mask: url('../../public/images/sprite-vanish.png') left/3000% 100%;
           animation: vanish 0.75s steps(29, end) 1 both;
         }
 

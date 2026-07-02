@@ -22,3 +22,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# local WeChat videos
+微信视频*.mp4
+
+# local/editor tool folders
+.superpowers/
+old_vibe_site/
