@@ -1,0 +1,429 @@
+/* ═══════════════════════════════════════
+   Works 3D Scene — wodniack.dev inspired
+   Color: Deep Red + Dark
+   ═══════════════════════════════════════ */
+
+:root {
+  --color-primary: #f40c3f;
+  --color-secondary: #160000;
+  --color-shadow: #540000;
+  --color-white: #fff0eb;
+  --font-mono: "Space Mono", "Courier New", monospace;
+  --font-serif: "Instrument Serif", Georgia, serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--color-secondary);
+  scrollbar-width: none;
+  color: var(--color-secondary);
+}
+
+html::-webkit-scrollbar { display: none; }
+
+body {
+  background-color: var(--color-primary);
+  position: relative;
+  overflow-x: hidden;
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+/* ═══════════════════════════════════════
+   Entry Overlay
+   ═══════════════════════════════════════ */
+
+.s-entry {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 1s cubic-bezier(0.86, 0, 0.07, 1) 0.3s, visibility 0s 1.3s;
+  visibility: visible;
+}
+
+.s-entry.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.s-entry-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.s-entry-line {
+  display: block;
+  width: 3rem;
+  height: 1px;
+  background: var(--color-primary);
+  transform: scaleX(1);
+}
+
+.s-entry-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+/* ═══════════════════════════════════════
+   Back / Close Buttons
+   ═══════════════════════════════════════ */
+
+.back-btn, .close-btn {
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-secondary);
+  color: var(--color-primary);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.back-btn {
+  top: 1.5rem;
+  left: 1.5rem;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  opacity: 0;
+  animation: fadeSlideIn 0.6s ease 1.5s forwards;
+}
+
+.close-btn {
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  opacity: 0;
+  animation: fadeSlideIn 0.6s ease 1.6s forwards;
+}
+
+.back-btn:hover, .close-btn:hover {
+  background: var(--color-primary);
+  color: var(--color-secondary);
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════
+   Custom Scrollbar
+   ═══════════════════════════════════════ */
+
+.scrollbar {
+  --border-width: 0.75rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: var(--border-width);
+  height: 100%;
+  z-index: 50;
+  background: var(--color-secondary);
+}
+
+.scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(var(--border-width) * 0.5);
+  height: 10rem;
+  translate: -50% 0;
+}
+
+.scrollbar-thumb::after {
+  content: '';
+  display: block;
+  width: 0.25rem;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 1rem;
+  transition: width 0.3s ease;
+}
+
+.scrollbar-thumb:hover::after {
+  width: calc(var(--border-width) - 0.125rem);
+}
+
+/* ═══════════════════════════════════════
+   Mask SVG — Decorative Ellipse Ring
+   ═══════════════════════════════════════ */
+
+.s-mask-wrap {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 92vw;
+  height: 80vh;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.s-mask-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ═══════════════════════════════════════
+   Work Section — Tall Scrollable Container
+   ═══════════════════════════════════════ */
+
+.s-work {
+  position: relative;
+  height: 2500vh;
+}
+
+/* ═══════════════════════════════════════
+   Fixed Scene Container
+   ═══════════════════════════════════════ */
+
+.s-inner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--color-secondary);
+  z-index: 1;
+  overflow: hidden;
+  color: var(--color-primary);
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+/* Diagonal lines overlay */
+.s-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    var(--color-shadow) 8.5px,
+    var(--color-shadow) 9.5px,
+    transparent 10px,
+    var(--color-secondary) 24px
+  );
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ═══════════════════════════════════════
+   Title — "WORKS"
+   ═══════════════════════════════════════ */
+
+.s-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 0.8em;
+  font-family: var(--font-mono);
+  font-size: clamp(10rem, 22vh, 22rem);
+  font-weight: 700;
+  line-height: 0.82;
+  text-transform: uppercase;
+  word-break: break-all;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0.7;
+  will-change: opacity;
+}
+
+.s-title-inner {
+  display: block;
+}
+
+.s-title-letter {
+  display: inline-block;
+  color: var(--color-primary);
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════
+   3D Scene Container
+   ═══════════════════════════════════════ */
+
+.s-scene {
+  position: absolute;
+  inset: 0;
+  perspective: 40rem;
+  perspective-origin: 50% 50%;
+}
+
+/* ═══════════════════════════════════════
+   Scene Letters — 3D Positioned
+   ═══════════════════════════════════════ */
+
+.s-scene-letter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-family: var(--font-mono);
+  font-size: clamp(8rem, 18vh, 18rem);
+  font-weight: 700;
+  line-height: 0.85;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(244, 12, 63, 0.15);
+  pointer-events: none;
+  white-space: nowrap;
+  will-change: transform, opacity;
+  /* Visible from start, JS drives transform + opacity */
+  opacity: 0.15;
+  transform: translate(-50%, -50%);
+}
+
+.s-scene-letter::before {
+  content: attr(data-letter);
+  position: absolute;
+  inset: 0;
+  color: var(--color-shadow);
+  opacity: 0.3;
+  transform: translateZ(-0.5rem);
+}
+
+/* ═══════════════════════════════════════
+   Work Items in 3D Space
+   ═══════════════════════════════════════ */
+
+.s-work-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(220px, 20vw, 320px);
+  background: var(--color-secondary);
+  padding: 0.4rem 0.4rem 0;
+  will-change: transform, opacity;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  /* When JS marks visible, enable pointer events */
+}
+
+.s-work-item.is-visible {
+  pointer-events: auto;
+}
+
+.s-work-item a {
+  display: block;
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+.s-work-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--color-primary);
+}
+
+.s-work-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.5) contrast(1.15) brightness(0.85);
+  transition: filter 0.5s ease, transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.s-work-item:hover .s-work-thumb img {
+  filter: saturate(1) contrast(1) brightness(1);
+  transform: scale(1.06);
+}
+
+/* Duotone overlay */
+.s-work-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(244, 12, 63, 0.25) 0%,
+    rgba(22, 0, 0, 0.35) 100%
+  );
+  mix-blend-mode: color;
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+
+.s-work-item:hover .s-work-thumb::after {
+  opacity: 0.35;
+}
+
+.s-work-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.4rem 0.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.s-work-caption-key {
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════
+   Responsive
+   ═══════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .back-btn {
+    top: 1rem; left: 1rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.6rem;
+  }
+  .close-btn {
+    top: 1rem; right: 1rem;
+    width: 2.2rem; height: 2.2rem;
+  }
+  .s-title { font-size: clamp(5rem, 18vw, 12rem); }
+  .s-scene-letter { font-size: clamp(4rem, 14vw, 10rem); }
+  .s-work-item { width: clamp(160px, 42vw, 260px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-btn, .close-btn { animation-duration: 0.001ms; opacity: 1; transform: none; }
+  .s-entry { animation-duration: 0.001ms; opacity: 0; visibility: hidden; }
+  .s-inner { animation-duration: 0.001ms; opacity: 1; }
+  .s-title { animation-duration: 0.001ms; opacity: 0.7; transform: translate(-50%, -50%); }
+}
